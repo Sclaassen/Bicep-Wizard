@@ -1,0 +1,2 @@
+param location string
+Error code: 500 - {'error': {'message': 'Failed to create completion as the model generated invalid Unicode output. Unfortunately, this can happen in rare situations. Consider reviewing your prompt or reducing the temperature of your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists. (Please include the request ID req_fb426cd1909bde45f9dc438ee81ee646 in your message.)', 'type': None, 'param': None, 'code': None}}
