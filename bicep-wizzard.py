@@ -1,28 +1,31 @@
 import os
 import google.generativeai as genai
 
-# Ensure the API key is set in the environment
-api_key = os.environ.get("API_KEY")
 
-# Check if the API key is available
-if not api_key:
-    raise ValueError("API_KEY environment variable not set")
+def generate_bicep_template() -> None:
+    """Generate a storage account Bicep template and save it to disk."""
 
-# Configure the generative AI model
-genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-pro')
+    api_key = os.environ.get("API_KEY")
+    if not api_key:
+        raise ValueError("API_KEY environment variable not set")
 
-# Generate the Bicep template content
-response = model.generate_content("Write a Bicep template to create a Storage account, it needs to strictly follow the Azure well-architected framework. Requirements: Private Endpoint, Private DNS, VNet")
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel("gemini-pro")
 
-# Print the response for verification
-print(response.text)
+    prompt = (
+        "Write a Bicep template to create a Storage account, it needs to strictly follow "
+        "the Azure well-architected framework. Requirements: Private Endpoint, Private DNS, VNet"
+    )
 
-# Define the filename for the Bicep template
-filename = 'storage_account_template.bicep'
+    response = model.generate_content(prompt)
+    print(response.text)
 
-# Write the generated content to a Bicep file
-with open(filename, 'w') as file:
-    file.write(response.text)
+    filename = "storage_account_template.bicep"
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(response.text)
 
-print(f"Bicep template saved as {filename}")
+    print(f"Bicep template saved as {filename}")
+
+
+if __name__ == "__main__":
+    generate_bicep_template()
