@@ -13,7 +13,11 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-pro')
 
 # Generate the Bicep template content
-response = model.generate_content("Write a Bicep template to create a Storage account, it needs to strictly follow the Azure well-architected framework. Requirements: Private Endpoint, Private DNS, VNet")
+prompt = (
+    "Write a Bicep template to create a Storage account, it needs to strictly follow "
+    "the Azure well-architected framework. Requirements: Private Endpoint, Private DNS, VNet"
+)
+response = model.generate_content(prompt)
 
 # Print the response for verification
 print(response.text)
